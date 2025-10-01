@@ -9,16 +9,16 @@ int main( int ac , char **av)
     // BitcoinExchange  p = BitcoinExchange::create();
     // return 0;
       try {
-        BitcoinExchange btc = BitcoinExchange::create(); // ✅ works with private constructor
+        BitcoinExchange btc = BitcoinExchange::create(); 
 
-        // if (argc == 2) {
-        //     btc.file_transaction(argv[1]);
-        // } else {
-        //     std::cout << "Usage: ./btc <transaction_file>" << std::endl;
-        // }
+        if (ac == 2) {
+            btc.file_transaction(av[1]);
+        } else {
+            std::cout << "Usage: ./btc <transaction_file>" << std::endl;
+        }
     }
     catch (const std::exception &e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+        std::cerr  << e.what() << std::endl;
     }
 
 }
