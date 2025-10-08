@@ -12,8 +12,7 @@ class BitcoinExchange
 {
 private:
     BitcoinExchange();
-    std::map <std::string,float> l;
-    // std::map <std::string,float> t;
+    std::map <std::string,float> database;
     
     public:
     ~BitcoinExchange();
