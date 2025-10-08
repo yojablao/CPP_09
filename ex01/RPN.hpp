@@ -7,10 +7,10 @@
 
 class RPN {
 private:
-    std::stack<int> _stack;
+    std::stack<int> stak;
 
-    bool isOperator(const std::string &str) const;
-    int aplyOperator(const std::string &oper, int a, int b) const;
+    bool isOper(const std::string &str) const;
+    int aplyOper(const std::string &oper, int a, int b) const;
 
 public:
     RPN();

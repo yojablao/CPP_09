@@ -1,21 +1,21 @@
 #include "RPN.hpp"
 #include <sstream>
-#include <iostream>
+// #include <iostream>
 
 RPN::RPN() {}
 RPN::RPN(const RPN &other) { *this = other; }
 RPN &RPN::operator=(const RPN &other) {
-    if (this != &other) this->_stack = other._stack;
+    if (this != &other) this->stak = other.stak;
     return *this;
 }
 RPN::~RPN() {}
 
-bool RPN::isOperator(const std::string &token) const
+bool RPN::isOper(const std::string &tok) const
 {
-    return (token == "+" || token == "-" || token == "*" || token == "/");
+    return (tok == "+" || tok == "-" || tok == "*" || tok == "/");
 }
 
-int RPN::aplyOperator(const std::string &op, int a, int b) const {
+int RPN::aplyOper(const std::string &op, int a, int b) const {
     if (op == "+") return a + b;
     if (op == "-") return a - b;
     if (op == "*") return a * b;
@@ -28,30 +28,30 @@ int RPN::aplyOperator(const std::string &op, int a, int b) const {
 }
 
 int RPN::mainfunc(const std::string &expr) {
-    std::istringstream iss(expr);
-    std::string token;
+    std::istringstream ss(expr);
+    std::string to;
 
-    while (iss >> token) {
-        if (token.size() == 1 && isdigit(token[0])) {
-            _stack.push(token[0] - '0');
+    while (ss >> to) {
+        if (to.size() == 1 && isdigit(to[0])) {
+            stak.push(to[0] - '0');
         }
-        else if (isOperator(token)) {
-            if (_stack.size() < 2)
+        else if (isOper(to)) {
+            if (stak.size() < 2)
                 throw std::runtime_error("err");
-            int b = _stack.top();
-            _stack.pop();
-            int a = _stack.top();
-            _stack.pop();
-            int result = aplyOperator(token, a, b);
-            _stack.push(result);
+            int b = stak.top();
+            stak.pop();
+            int a = stak.top();
+            stak.pop();
+            int result = aplyOper(to, a, b);
+            stak.push(result);
         }
         else {
             throw std::runtime_error("err");
         }
     }
 
-    if (_stack.size() != 1)
+    if (stak.size() != 1)
         throw std::runtime_error("err");
 
-    return _stack.top();
+    return stak.top();
 }

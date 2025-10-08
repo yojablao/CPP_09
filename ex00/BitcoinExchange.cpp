@@ -19,7 +19,7 @@ BitcoinExchange::BitcoinExchange()
         buf << (buffer) ;
         buffer.clear();
         if (std::getline(buf, buffer, ',') && (buf >> p)) {
-            l[buffer] = p;
+            database[buffer] = p;
         } else {
             if(buffer == "date")
             {
@@ -33,14 +33,13 @@ BitcoinExchange::BitcoinExchange()
 
     }
     in.close();
-    // std::cout << "value : : " << l["2022-03-29"]   << std::endl;
 }
 float BitcoinExchange::get_close_one(const std::string &str) 
 {
-    std::map<std::string,float>::iterator it = l.lower_bound(str);
-    if (it != l.end() && it->first == str)
+    std::map<std::string,float>::iterator it = database.lower_bound(str);
+    if (it != database.end() && it->first == str)
         return it->second;
-    else if(it != l.begin())
+    else if(it != database.begin())
     {--it;
     return it->second;}
     throw std::logic_error("bad input => " + str);
@@ -95,11 +94,9 @@ void BitcoinExchange::file_transaction(char *file)
 
     }
     in.close();
-    // std::cout << "value : : " << l["2022-03-29"]   << std::endl;
-    
 }
 
 BitcoinExchange::~BitcoinExchange()
 {
-    l.clear();
+    database.clear();
 }

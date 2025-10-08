@@ -1,18 +1,18 @@
-name  = btc
+name  = PmergeMe
 
-src = main.cpp   PmergeMe.cpp
-head =   BitcPmergeMe.hpp
-obj = $(src:%.cpp=%.o)
+src = main.cpp  PmergeMe.cpp
+head = PmergeMe.hpp
+obj = $(src:.cpp=.o)
 
-CCXX = c++ -Wall -Wextra -Werror 
-CflagXX = -fsanitize=address -std=c++98 
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 %.o :%.cpp $(head)
-	$(CCXX) $(CflagXX) $< -c -o $@
+	$(CXX) $(CXXFLAGS) $< -c -o $@
 
 all:$(name)
 
 $(name) : $(obj)
-	$(CCXX) $(CflagXX) $(obj) -o $(name)
+	$(CXX) $(CXXFLAGS) $(obj) -o $(name)
 
 clean :
 	rm -rf $(obj)
